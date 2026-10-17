@@ -114,5 +114,3 @@ curl -X POST localhost:8000/api/escalate -H "Authorization: Bearer $TOKEN"
 # Dashboard (no auth required for demo)
 open http://localhost:8000/
 # 6. Open http://localhost:8000 in your browser
-
-======================================================
