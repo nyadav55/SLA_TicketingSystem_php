@@ -24,50 +24,68 @@ SOLID	✅	Verified — see bootstrap.php: TicketService receives interfaces only
 sla-ticketing/
 ├── composer.json
 ├── .env
-├── .gitignore
+├── .env.example
 ├── bootstrap.php
-├── README.md
-├── public/
-│   └── index.php
 ├── bin/
+│   ├── migrate.php
 │   ├── seed.php
 │   └── worker.php
+├── public/
+│   └── index.php
 ├── views/
 │   └── dashboard.php
-├── storage/                      ← auto-created; leave empty
 └── src/
     ├── Domain/
-    │   ├── ValueObject/Priority.php
-    │   ├── ValueObject/TicketStatus.php
-    │   ├── Event/TicketEvent.php
-    │   ├── Event/TicketEventType.php
-    │   ├── Entity/Ticket.php
-    │   └── Repository/TicketRepository.php
+    │   ├── Event/
+    │   │   ├── DomainEvent.php
+    │   │   └── Event.php
+    │   ├── Ticket/
+    │   │   ├── Ticket.php
+    │   │   ├── TicketPriority.php
+    │   │   ├── TicketRepository.php
+    │   │   └── TicketStatus.php
+    │   └── User/
+    │       ├── User.php
+    │       ├── UserRepository.php
+    │       └── UserRole.php
     ├── Application/
-    │   ├── DTO/CreateTicketRequest.php
-    │   ├── Exception/ValidationException.php
-    │   ├── Exception/NotFoundException.php
-    │   ├── Exception/AuthException.php
-    │   ├── Service/TicketService.php
-    │   ├── Service/EscalationService.php
-    │   ├── Service/AuthService.php
-    │   ├── Strategy/SlaCalculator.php
-    │   └── Strategy/SlaPolicyByPriority.php
+    │   ├── AuthService.php
+    │   ├── DTO/
+    │   │   ├── CreateTicketRequest.php
+    │   │   ├── LoginRequest.php
+    │   │   └── TicketResponse.php
+    │   ├── EscalationService.php
+    │   ├── Strategy/
+    │   │   ├── CriticalSlaStrategy.php
+    │   │   ├── HighSlaStrategy.php
+    │   │   ├── LowSlaStrategy.php
+    │   │   ├── NormalSlaStrategy.php
+    │   │   ├── SlaStrategy.php
+    │   │   └── SlaStrategyFactory.php
+    │   └── TicketService.php
     └── Infrastructure/
+        ├── Auth/
+        │   └── Jwt.php
         ├── Container.php
-        ├── Database.php
         ├── Env.php
+        ├── Event/
+        │   ├── EventDispatcher.php
+        │   ├── EventStoreListener.php
+        │   └── LogListener.php
+        ├── Http/
+        │   ├── AuthMiddleware.php
+        │   ├── CorsMiddleware.php
+        │   ├── Middleware.php
+        │   ├── Request.php
+        │   ├── Response.php
+        │   └── Router.php
         ├── Logger.php
-        ├── Event/EventDispatcher.php
-        ├── Event/InMemoryDispatcher.php
-        ├── Event/LoggingListener.php
-        ├── Http/Response.php
-        ├── Http/Router.php
-        ├── Http/ErrorHandler.php
-        ├── Http/Middleware/AuthMiddleware.php
-        ├── Http/Controller/AuthController.php
-        ├── Http/Controller/TicketController.php
-        └── Persistence/PdoTicketRepository.php
+        └── Persistence/
+            ├── Database.php
+            ├── PdoEventStore.php
+            ├── PdoTicketRepository.php
+            ├── PdoUserRepository.php
+            └── Schema.php
         
 # --- How to Run --- #
 # 1. Create project folder
