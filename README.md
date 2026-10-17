@@ -1,14 +1,6 @@
 # SLA_TicketingSystem_php
 SLA = Service Level Agreement. In this ticketing system context, it's the promised time window within which support must respond to a ticket. If breached, the ticket escalates.
 "If you report a critical bug, we'll respond within 4 hours — or we pay a penalty."
-
-The Rule (from Priority.php)
-Priority	SLA Window	Deadline
-🔴 Critical	4 hours	Response due in 4h
-🟠 High	8 hours	Response due in 8h
-🔵 Medium	24 hours	Response due in 24h
-🟢 Low	72 hours	Response due in 72h
-
 # Example
 Think of it like a pizza delivery guarantee:
 🍕 "Delivery in 30 minutes or it's free" = SLA
@@ -17,6 +9,16 @@ Think of it like a pizza delivery guarantee:
 📦 Pizza arrives at 12:45 = SLA breached (like isSlaBreached())
 💰 Refund issued = escalation (like escalate())
 Same idea, different domain. SLA is the clock that enforces accountability.
+
+# 📊 Requirement Coverage
+Requirement	Status	Where
+UI	✅	views/dashboard.php + GET / (no auth)
+REST API	✅	10 endpoints in Router (see README)
+DB	✅	SQLite auto-created by Database::migrate() — 5 tables, 2 indexes
+Error handling	✅	ErrorHandler (422/404/401/400/500) + domain exceptions + swallow on audit failure
+Time complexity	✅	Indexed idx_sla_scan (worker), idx_org_status_priority (list), bounded LIMIT 200, pagination cap
+Design patterns	✅	Repository, Strategy, Observer, DI, Factory, Front Controller, Middleware, DTO — all used in code, not just named
+SOLID	✅	Verified — see bootstrap.php: TicketService receives interfaces only
 
 # 🗂️ Project Structure
 sla-ticketing/
